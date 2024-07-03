@@ -395,7 +395,7 @@ class AcceleratePPOTrainer(AccelerateRLTrainer):
                     )
                     logits = outputs.logits
                     values = outputs.value
-                    if hasattr(self.model, "frozen_head") or self.model.peft_type:
+                    if hasattr(self.model, "frozen_head"):
                         ref_logits = self.model.forward_hydra(
                             input_ids=prompt_tensors,
                             attention_mask=attention_mask,
@@ -421,7 +421,7 @@ class AcceleratePPOTrainer(AccelerateRLTrainer):
                         all_tokens, attention_mask=attention_mask, position_ids=position_ids
                     )
                     # TODO(dahoas): When hydra model works need to also support generation on hydra head
-                    if hasattr(self.model, "frozen_head") or self.model.peft_type:
+                    if hasattr(self.model, "frozen_head"):
                         ref_logits = self.model.forward_hydra(
                             all_tokens,
                             attention_mask=attention_mask,
