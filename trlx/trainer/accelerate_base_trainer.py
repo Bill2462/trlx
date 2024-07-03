@@ -309,7 +309,7 @@ class AccelerateRLTrainer(BaseRLTrainer):
     def save(self, directory: Optional[str] = None, **kwargs):
         """Creates a checkpoint for the optimizer, scheduler and the model"""
         dst_dir = directory or self.config.train.checkpoint_dir
-        self.accelerator.save_state(dst_dir, **kwargs)
+        self.accelerator.save_state(dst_dir, safe_serialization=False, **kwargs)
 
         if self.config.model.peft_config is not None and self.accelerator.is_main_process:
             # Remove "pytorch_model.bin" because it contains more than necessary,
