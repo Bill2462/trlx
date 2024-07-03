@@ -71,7 +71,7 @@ class AcceleratePPOTrainer(AccelerateRLTrainer):
         self.store.clear_history()  # Clear the rollout store
 
         # Set up a reference model when hydra heads are not used
-        if not hasattr(self.model, "frozen_head") and not self.model.peft_type:
+        if not hasattr(self.model, "frozen_head"):
             self.ref_model = self.get_arch(self.config)
             self.ref_model.to(self.accelerator.device)
             self.ref_model.eval()
